@@ -1,15 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>IceBreaker Mini App</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1>Hi! Welcome to IceBreaker</h1>
-  <p>Let’s make some friends!</p>
-  <button id="startBtn">Start</button>
+<!-- Firebase SDKs (Browser version) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-  <script src="script.js"></script>
-</body>
-</html>
+<script>
+  // Firebase config (همونی که خودت گرفتی ✅)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDCw8uSRVNTymjz8OiT6hfbeuEfnBBoZXs",
+    authDomain: "icebreakerminiapp.firebaseapp.com",
+    projectId: "icebreakerminiapp",
+    storageBucket: "icebreakerminiapp.firebasestorage.app",
+    messagingSenderId: "721330393424",
+    appId: "1:721330393424:web:a28ae1b59830e2cd431c55"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Firestore
+  const db = firebase.firestore();
+
+  // وقتی Start کلیک میشه
+  document.getElementById("startBtn").addEventListener("click", async () => {
+    const user = {
+      telegram_id: Date.now(),
+      name: "Test User",
+      country: "Unknown",
+      ice_points: 0,
+      created_at: new Date()
+    };
+
+    await db.collection("users").add(user);
+    alert("User saved in Firebase 🚀");
+  });
+</script>
